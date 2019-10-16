@@ -4,14 +4,12 @@ jeshile='\e[40;38;5;82m'
 jo='\e[0m'  
 red='\e[31m'
 yellow='\e[0;93m'
-
 echo " "
 echo -e "${yellow} ┌──────────────────────────────────────────────┐ \e[0m"
 echo -e "${yellow} │           installer mysql 5.5.62             │ \e[0m"
 echo -e "${yellow} └──────────────────────────────────────────────┘ \e[0m"
 echo " " 
 sleep 5
-
 echo " "
 echo -e "${jeshile} ┌──────────────────────────────────────────────┐ \e[0m"
 echo -e "${jeshile} │               Update System                  │ \e[0m"
@@ -19,21 +17,18 @@ echo -e "${jeshile} └───────────────────
 echo " " 
 sudo apt update
 sudo apt install -y --force-yes lsb-core 
-
 osname=$(lsb_release -si)
 osrelease=$(lsb_release -sr)
 oscodename=$(lsb_release -sc) 
 osDisc=$(lsb_release -sd)
 arch=$(uname -m)
 file=/etc/rc.local
-
 echo " "
 echo -e "${jeshile} ┌──────────────────────────────────────────────┐ \e[0m"
 echo -e "${jeshile} │            Checking System Version           │ \e[0m"
 echo -e "${jeshile} └──────────────────────────────────────────────┘ \e[0m"
 echo " " 
 if [ "$osname" == "Ubuntu"  ]; then
-
 if [ "$arch" == "x86_64"  ]; then
 echo "" 
 else
@@ -42,14 +37,12 @@ echo -e "${red} │[+]        The system is not supported        │ \e[0m"
 echo -e "${red} └──────────────────────────────────────────────┘ \e[0m"
 exit 3
 fi
-
 else
 echo -e "${red} ┌──────────────────────────────────────────────┐ \e[0m"
 echo -e "${red} │[+]        The system is not supported        │ \e[0m"
 echo -e "${red} └──────────────────────────────────────────────┘ \e[0m"
 exit 3
 fi
-
 echo " "
 echo -e "${jeshile} ┌──────────────────────────────────────────────┐ \e[0m"
 echo -e "${jeshile} │         NEW password for your MySQL          │ \e[0m"
@@ -61,7 +54,6 @@ echo -e "${jeshile} ┌───────────────────
 echo -e "${jeshile} │            Install MySQL Server              │ \e[0m"
 echo -e "${jeshile} └──────────────────────────────────────────────┘ \e[0m"
 echo " " 
-
 if [ "$osrelease" == "14.04"  ]; then
 sudo apt install mysql-server
 sleep 3
@@ -118,7 +110,6 @@ sudo /etc/init.d/mysql.server start
 sleep 1
 sudo /etc/init.d/mysql.server status
 sleep 1
-
 if [ -f "$file" ]
 then
 sed --in-place '/exit 0/d' /etc/rc.local 
@@ -144,17 +135,12 @@ echo "exit 0" >> /etc/rc.local
 sleep 1
 chmod +x /etc/rc.local  
 fi
-
-
 fi
-
 echo -e " \n "
 read -p "$(tput setaf 1)Reboot now (y/n)?$(tput sgr0) " CONT
 if [ "$CONT" == "y" ] || [ "$CONT" == "Y" ]; then
 reboot
 fi
-
 exit 3
-
 fi
 
